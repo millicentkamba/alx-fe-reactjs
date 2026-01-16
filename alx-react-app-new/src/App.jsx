@@ -1,34 +1,14 @@
-// alx-react-app-new/src/App.jsx
-
-import Header from './components/Header'
-import MainContent from './components/MainContent'
-import UserProfile from './components/UserProfile'
-import Counter from './components/Counter'
-import Footer from './components/Footer'
-import './App.css'
+import ProfilePage from './components/ProfilePage'
+import UserContext from './UserContext'
+import './index.css'
 
 function App() {
+  const userData = { name: "Jane Doe", email: "jane.doe@example.com" };
+
   return (
-    <div>
-      {/* Header Component */}
-      <Header />
-
-      {/* Main Content */}
-      <MainContent />
-
-      {/* User Profile with props */}
-      <UserProfile
-        name="Alice"
-        age={25}
-        bio="Loves hiking and photography"
-      />
-
-      {/* Counter Component */}
-      <Counter />
-
-      {/* Footer Component */}
-      <Footer />
-    </div>
+    <UserContext.Provider value={userData}>
+      <ProfilePage />
+    </UserContext.Provider>
   )
 }
 
