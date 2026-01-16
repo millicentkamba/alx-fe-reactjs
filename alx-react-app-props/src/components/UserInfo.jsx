@@ -1,7 +1,8 @@
-import UserDetails from './UserDetails'
+import UserProfile from './UserProfile'
 
 function UserInfo() {
-  return <UserDetails />
+  // Simply render the UserProfile component
+  return <UserProfile />
 }
 
 export default UserInfo
