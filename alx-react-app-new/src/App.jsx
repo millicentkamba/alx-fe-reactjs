@@ -1,29 +1,25 @@
-// alx-react-app/src/App.jsx
-
-import Header from './components/Header'
-import MainContent from './components/MainContent'
-import Footer from './components/Footer'
-import UserProfile from './components/UserProfile'
-import './App.css'
+import React from "react";
+import Header from "./Header";
+import UserProfile from "./UserProfile";
+import MainContent from "./MainContent";
+import Footer from "./Footer";
 
 function App() {
   return (
     <div>
-      {/* Render components in the required order */}
       <Header />
-      <MainContent />
 
-      {/* Render UserProfile component with props */}
-      <UserProfile 
-        name="Alice" 
-        age={25} 
-        bio="Loves hiking and photography" 
+      <UserProfile
+        name="John Doe"
+        age={28}
+        bio="A passionate traveler who loves exploring new cities."
       />
+
+      <MainContent />
 
       <Footer />
     </div>
-  )
+  );
 }
 
-export default App
-
+export default App;
