@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import recipesData from "../data.json";
 
 function RecipeDetail() {
   const { id } = useParams();
-  const recipe = recipesData.find((r) => r.id === parseInt(id));
+  const [recipe, setRecipe] = useState(null);
+
+  useEffect(() => {
+    // Load the recipe based on the id from the URL
+    const foundRecipe = recipesData.find((r) => r.id === parseInt(id));
+    setRecipe(foundRecipe);
+  }, [id]);
 
   if (!recipe) {
     return (
@@ -57,4 +63,3 @@ function RecipeDetail() {
 }
 
 export default RecipeDetail;
-
