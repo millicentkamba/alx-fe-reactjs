@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom"; // <-- import Link
+import { Link } from "react-router-dom";
 import recipesData from "../data.json";
 
 function HomePage() {
   const [recipes, setRecipes] = useState([]);
 
   useEffect(() => {
-    setRecipes(recipesData); // Load recipes from JSON
+    setRecipes(recipesData);
   }, []);
 
   return (
