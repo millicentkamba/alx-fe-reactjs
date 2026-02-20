@@ -2,7 +2,6 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
 const FormikForm = () => {
-
   const initialValues = {
     username: "",
     email: "",
@@ -10,36 +9,19 @@ const FormikForm = () => {
   };
 
   const validationSchema = Yup.object({
-    username: Yup.string()
-      .required("Username is required"),
-
+    username: Yup.string().required("Username is required"),
     email: Yup.string()
       .email("Invalid email format")
       .required("Email is required"),
-
     password: Yup.string()
       .min(6, "Password must be at least 6 characters")
       .required("Password is required")
   });
 
-  const handleSubmit = async (values, { resetForm }) => {
-    try {
-      const response = await fetch("https://jsonplaceholder.typicode.com/users", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(values)
-      });
-
-      const data = await response.json();
-      console.log("User Registered:", data);
-      alert("Registration Successful!");
-
-      resetForm();
-    } catch (error) {
-      console.error("Error:", error);
-    }
+  const onSubmit = (values, { resetForm }) => {
+    console.log(values);
+    alert("Formik Registration Successful!");
+    resetForm();
   };
 
   return (
@@ -49,17 +31,16 @@ const FormikForm = () => {
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
-        onSubmit={handleSubmit}
+        onSubmit={onSubmit}
       >
         <Form>
-
           <div>
             <Field
               type="text"
               name="username"
               placeholder="Username"
             />
-            <ErrorMessage name="username" component="p" style={{ color: "red" }} />
+            <ErrorMessage name="username" component="div" />
           </div>
 
           <div>
@@ -68,7 +49,7 @@ const FormikForm = () => {
               name="email"
               placeholder="Email"
             />
-            <ErrorMessage name="email" component="p" style={{ color: "red" }} />
+            <ErrorMessage name="email" component="div" />
           </div>
 
           <div>
@@ -77,11 +58,10 @@ const FormikForm = () => {
               name="password"
               placeholder="Password"
             />
-            <ErrorMessage name="password" component="p" style={{ color: "red" }} />
+            <ErrorMessage name="password" component="div" />
           </div>
 
           <button type="submit">Register</button>
-
         </Form>
       </Formik>
     </div>
