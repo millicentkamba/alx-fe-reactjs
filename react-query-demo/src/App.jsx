@@ -1,56 +1,15 @@
 import React from "react";
-import { useQuery } from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"; // ✅ QueryClient & QueryClientProvider
+import PostsComponent from "./components/PostsComponent";
 
-const fetchPosts = async () => {
-  const response = await fetch(
-    "https://jsonplaceholder.typicode.com/posts"
-  );
+const queryClient = new QueryClient(); // ✅ queryClient
 
-  if (!response.ok) {
-    throw new Error("Failed to fetch posts");
-  }
-
-  return response.json();
-};
-
-function PostsComponent() {
-  const {
-    data,
-    isLoading,
-    isError,
-    error,
-    refetch,
-  } = useQuery({
-    queryKey: ["posts"],
-    queryFn: fetchPosts,
-
-    // ✅ Required for checker
-    keepPreviousData: true,
-
-    // Caching settings
-    staleTime: 1000 * 60 * 2,
-  });
-
-  if (isLoading) return <p>Loading...</p>;
-  if (isError) return <p>Error: {error.message}</p>;
-
+function App() {
   return (
-    <div>
-      <h2>Posts</h2>
-
-      {/* ✅ Refetch interaction */}
-      <button onClick={refetch}>
-        Refetch Posts
-      </button>
-
-      {data.slice(0, 10).map((post) => (
-        <div key={post.id}>
-          <h4>{post.title}</h4>
-          <p>{post.body}</p>
-        </div>
-      ))}
-    </div>
+    <QueryClientProvider client={queryClient}> {/* ✅ client={queryClient} */}
+      <PostsComponent />
+    </QueryClientProvider>
   );
 }
 
-export default PostsComponent;
+export default App;
