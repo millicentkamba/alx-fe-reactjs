@@ -7,7 +7,7 @@ const fetchPosts = async () => {
   );
 
   if (!response.ok) {
-    throw new Error("Network response was not ok");
+    throw new Error("Failed to fetch posts");
   }
 
   return response.json();
@@ -23,28 +23,33 @@ function PostsComponent() {
   } = useQuery({
     queryKey: ["posts"],
     queryFn: fetchPosts,
-    staleTime: 1000 * 60 * 5, // 5 minutes cache
-    cacheTime: 1000 * 60 * 10,
+
+    // ✅ CACHING DEMONSTRATION
+    staleTime: 1000 * 60 * 2,      // data stays fresh for 2 minutes
+    cacheTime: 1000 * 60 * 5,      // cache kept for 5 minutes
+    refetchOnWindowFocus: false,   // prevents auto refetch
   });
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <p>Loading posts...</p>;
   if (isError) return <p>Error: {error.message}</p>;
 
   return (
     <div>
       <h2>Posts</h2>
 
-      {/* ✅ Refetch interaction */}
-      <button onClick={() => refetch()}>
+      {/* ✅ DATA REFETCH INTERACTION */}
+      <button onClick={refetch}>
         Refetch Posts
       </button>
 
-      {data.slice(0, 10).map((post) => (
-        <div key={post.id}>
-          <h4>{post.title}</h4>
-          <p>{post.body}</p>
-        </div>
-      ))}
+      <div>
+        {data.slice(0, 10).map((post) => (
+          <div key={post.id}>
+            <h4>{post.title}</h4>
+            <p>{post.body}</p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
