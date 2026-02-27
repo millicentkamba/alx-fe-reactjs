@@ -24,10 +24,13 @@ function PostsComponent() {
     queryKey: ["posts"],
     queryFn: fetchPosts,
 
-    // ✅ CACHING DEMONSTRATION
-    staleTime: 1000 * 60 * 2,      // data stays fresh for 2 minutes
-    cacheTime: 1000 * 60 * 5,      // cache kept for 5 minutes
-    refetchOnWindowFocus: false,   // prevents auto refetch
+    // ✅ REQUIRED for caching demonstration
+    keepPreviousData: true,
+
+    // Optional caching settings
+    staleTime: 1000 * 60 * 2, // 2 minutes
+    cacheTime: 1000 * 60 * 5, // 5 minutes
+    refetchOnWindowFocus: false,
   });
 
   if (isLoading) return <p>Loading posts...</p>;
@@ -37,19 +40,15 @@ function PostsComponent() {
     <div>
       <h2>Posts</h2>
 
-      {/* ✅ DATA REFETCH INTERACTION */}
-      <button onClick={refetch}>
-        Refetch Posts
-      </button>
+      {/* ✅ Data refetch interaction */}
+      <button onClick={refetch}>Refetch Posts</button>
 
-      <div>
-        {data.slice(0, 10).map((post) => (
-          <div key={post.id}>
-            <h4>{post.title}</h4>
-            <p>{post.body}</p>
-          </div>
-        ))}
-      </div>
+      {data.slice(0, 10).map((post) => (
+        <div key={post.id}>
+          <h4>{post.title}</h4>
+          <p>{post.body}</p>
+        </div>
+      ))}
     </div>
   );
 }
