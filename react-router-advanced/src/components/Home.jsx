@@ -1,4 +1,3 @@
-// src/components/Home.jsx
 import React from "react";
 import { Link } from "react-router-dom";
 
@@ -11,6 +10,8 @@ function Home() {
       <Link to="/profile/settings">Go to Profile Settings</Link>
       <br />
       <Link to="/posts/123">Go to Post 123</Link>
+      <br />
+      <Link to="/login">Login</Link>
     </div>
   );
 }

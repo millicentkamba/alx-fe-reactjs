@@ -13,9 +13,10 @@ function App() {
   return (
     <Router>
       <Routes>
+        {/* Public Home Route */}
         <Route path="/" element={<Home />} />
 
-        {/* Protected Profile Route */}
+        {/* Protected Route for Profile */}
         <Route
           path="/profile/*"
           element={
@@ -32,6 +33,7 @@ function App() {
         {/* Dynamic Route */}
         <Route path="/posts/:postId" element={<UserPost />} />
 
+        {/* Login */}
         <Route path="/login" element={<Login />} />
 
         {/* Fallback */}
